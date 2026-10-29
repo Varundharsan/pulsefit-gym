@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PulseFit – Gym & Fitness Membership Portal</title>
+<style>
+:root{--bg:#fff7ed;--card:#fff;--tx:#1e1b4b;--mu:#6b7280;--bd:#e5e7eb;--a:#f97316;--b:#ec4899;--c:#8b5cf6;--d:#06b6d4;--ok:#10b981;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f0c29;--card:#1b1740;--tx:#f5f3ff;--mu:#a5a3c7;--bd:#2f2a63}}
+:root[data-theme="dark"]{--bg:#0f0c29;--card:#1b1740;--tx:#f5f3ff;--mu:#a5a3c7;--bd:#2f2a63}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;gap:6px;align-items:center;padding:10px 16px;background:linear-gradient(90deg,var(--a),var(--b),var(--c));overflow-x:auto}
+nav b{color:#fff;font-size:1.2rem;margin-right:10px;white-space:nowrap}
+nav a{color:#fff;text-decoration:none;padding:6px 12px;border-radius:99px;font-size:.88rem;white-space:nowrap;background:rgba(255,255,255,.15)}
+nav a.on{background:#fff;color:#be185d;font-weight:700}
+nav button{margin-left:auto;border:0;background:rgba(255,255,255,.25);border-radius:99px;padding:6px 10px;cursor:pointer}
+main{max-width:1050px;margin:0 auto;padding:22px 16px 60px}
+h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin:.2em 0}
+h2{margin:1.2em 0 .5em}
+.g{background:linear-gradient(90deg,var(--a),var(--b),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}
+@media(max-width:760px){.hero{grid-template-columns:1fr}}
+#stage{height:340px;border-radius:24px;background:radial-gradient(circle at 50% 40%,#7c3aed,#312e81 60%,#0f0c29);cursor:grab;position:relative;overflow:hidden;touch-action:pan-y}
+#stage small{position:absolute;bottom:8px;left:0;right:0;text-align:center;color:#c4b5fd;pointer-events:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;border-top:6px solid var(--k,var(--a));box-shadow:0 6px 18px rgba(139,92,246,.12)}
+.card h3{margin:.2em 0}
+.btn{border:0;cursor:pointer;color:#fff;font-weight:700;padding:10px 18px;border-radius:12px;background:linear-gradient(90deg,var(--a),var(--b));font-size:.95rem}
+.btn.alt{background:linear-gradient(90deg,var(--c),var(--d))}
+.btn.out{background:transparent;color:var(--tx);border:2px solid var(--bd)}
+.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.price{font-size:2rem;font-weight:800}
+.mu{color:var(--mu);font-size:.9rem}
+ul.f{padding-left:18px;margin:8px 0}
+.tog{display:inline-flex;background:var(--card);border:1px solid var(--bd);border-radius:99px;padding:4px}
+.tog button{border:0;background:none;color:var(--tx);padding:8px 18px;border-radius:99px;cursor:pointer;font-weight:600}
+.tog button.on{background:linear-gradient(90deg,var(--c),var(--b));color:#fff}
+.av{font-size:3rem;width:80px;height:80px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(135deg,var(--k),var(--b))}
+label{display:block;font-weight:600;font-size:.9rem;margin:10px 0 4px}
+input,select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font-size:1rem}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bar{height:14px;border-radius:99px;background:linear-gradient(90deg,#38bdf8 0 22%,#10b981 22% 48%,#f59e0b 48% 72%,#ef4444 72%);position:relative;margin:14px 0}
+.bar i{position:absolute;top:-5px;width:6px;height:24px;border-radius:4px;background:var(--tx);transition:left .4s}
+.prog{height:10px;background:var(--bd);border-radius:99px;overflow:hidden}.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--ok),var(--d))}
+.ban{padding:14px 18px;border-radius:14px;color:#fff;font-weight:600;margin:14px 0;background:linear-gradient(90deg,#f59e0b,#ef4444)}
+.ban.ok{background:linear-gradient(90deg,var(--ok),var(--d))}
+.cl{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tag{display:inline-block;background:var(--c);color:#fff;border-radius:8px;padding:2px 8px;font-size:.8rem;font-weight:700}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#111827;color:#fff;padding:12px 20px;border-radius:12px;opacity:0;transition:.3s;pointer-events:none;z-index:9;max-width:90%}
+#toast.s{opacity:1}
+</style></head><body>
+<nav id="nav"></nav><main id="app"></main><div id="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let S={b:[]};try{S=JSON.parse(localStorage.getItem('pf'))||S}catch(e){}
+const save=()=>{try{localStorage.setItem('pf',JSON.stringify(S))}catch(e){}},inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const go=h=>location.hash=h,toast=m=>{const t=$('#toast');t.textContent=m;t.className='s';clearTimeout(toast.i);toast.i=setTimeout(()=>t.className='',2600)};
+const PL=[{id:'basic',n:'Basic',m:999,k:'#06b6d4',f:['Gym floor access','Locker room','2 classes / month']},
+{id:'pro',n:'Pro',m:1799,k:'#8b5cf6',f:['Everything in Basic','Unlimited group classes','1 trainer session / month']},
+{id:'elite',n:'Elite',m:2999,k:'#ec4899',f:['Everything in Pro','Personal trainer plan','Sauna & diet consult']}];
+const TR=[{n:'Arjun',e:'🏋️',s:'HIIT & Fat Loss',y:8,r:4.9,k:'#f97316'},{n:'Meera',e:'🧘',s:'Yoga & Mobility',y:6,r:4.8,k:'#10b981'},
+{n:'Karthik',e:'🥊',s:'Strength & Boxing',y:10,r:4.9,k:'#ef4444'},{n:'Divya',e:'💃',s:'Zumba & Cardio',y:5,r:4.7,k:'#ec4899'}];
+const CL=[[1,'Mon','6:00 AM','Yoga Flow','Meera'],[2,'Mon','7:30 PM','HIIT Blast','Arjun'],[3,'Tue','6:30 PM','Zumba Party','Divya'],[4,'Wed','6:00 AM','Strength 101','Karthik'],
+[5,'Thu','7:00 PM','Spin Cycle','Arjun'],[6,'Fri','6:00 PM','Boxing Cardio','Karthik'],[7,'Sat','8:00 AM','Power Yoga','Meera'],[8,'Sun','9:00 AM','Zumba Dance','Divya']];
+const plan=()=>PL.find(p=>p.id===(S.p||{}).id),cy=()=>(S.p||{}).cy||'m',price=(p,c)=>c==='y'?p.m*10:p.m,days=()=>Math.ceil((S.exp-Date.now())/864e5);
+let cyc='m';
+const bmiCard=()=>`<div class="card" style="--k:var(--d)"><h3>🧮 BMI Calculator</h3><div class="row"><div><label>Weight (kg)</label><input id="bw" type="number" min="1" value="70"></div><div><label>Height (cm)</label><input id="bh" type="number" min="1" value="170"></div></div>
+<p><button class="btn alt" onclick="bmi()">Calculate</button></p><div id="bo" class="mu">Enter your details to see your BMI.</div></div>`;
+function bmi(){const w=+$('#bw').value,h=+$('#bh').value;if(!(w>0&&h>0))return toast('Enter valid weight and height');const b=w/((h/100)**2),c=b<18.5?['Underweight','#38bdf8']:b<25?['Healthy','#10b981']:b<30?['Overweight','#f59e0b']:['Obese','#ef4444'];
+const pos=Math.max(0,Math.min(100,(b-15)/25*100));$('#bo').innerHTML=`<div style="font-size:1.8rem;font-weight:800;color:${c[1]}">${b.toFixed(1)} · ${c[0]}</div><div class="bar"><i style="left:calc(${pos}% - 3px)"></i></div><span class="mu">Healthy range: 18.5 – 24.9</span>`}
+const V={
+home:()=>`<div class="hero"><div><span class="tag">Join 5,000+ members</span><h1>Get stronger with <span class="g">PulseFit</span></h1><p class="mu">Pick a plan, choose your trainer, book classes and track your renewal – all in one place.</p><p><button class="btn" onclick="go('plans')">View Membership Plans →</button></p></div>
+<div id="stage"><small>👆 Drag to spin the 3D dumbbell</small></div></div>
+<h2>Why PulseFit?</h2><div class="grid">${[['📅','Flexible plans','Monthly or yearly – save 2 months on yearly.','#f97316'],['🧑‍🏫','Expert trainers','Choose a coach that fits your goal.','#8b5cf6'],['🗓️','Class booking','Yoga, HIIT, Zumba and more every week.','#ec4899'],['🔔','Renewal reminders','We nudge you before your plan ends.','#06b6d4']].map(x=>`<div class="card" style="--k:${x[3]}"><div style="font-size:2rem">${x[0]}</div><h3>${x[1]}</h3><span class="mu">${x[2]}</span></div>`).join('')}</div>
+<h2>Check your fitness</h2><div style="max-width:480px">${bmiCard()}</div>`,
+plans:()=>`<h1>Membership <span class="g">Plans</span></h1><div class="tog"><button class="${cyc=='m'?'on':''}" onclick="cyc='m';render()">Monthly</button><button class="${cyc=='y'?'on':''}" onclick="cyc='y';render()">Yearly · 2 months free</button></div><br><br>
+<div class="grid">${PL.map(p=>`<div class="card" style="--k:${p.k}"><h3>${p.n}</h3><div class="price">${inr(price(p,cyc))}<span class="mu"> / ${cyc=='y'?'year':'month'}</span></div><ul class="f">${p.f.map(f=>`<li>${f}</li>`).join('')}</ul><button class="btn" onclick="pick('${p.id}')">Choose ${p.n}</button></div>`).join('')}</div>`,
+trainers:()=>`<h1>Pick your <span class="g">Trainer</span></h1><p class="mu">${plan()?`Plan: <b>${plan().n}</b> (${cy()=='y'?'yearly':'monthly'}). `:''}Choose the coach who matches your goals.</p>
+<div class="grid">${TR.map(t=>`<div class="card" style="--k:${t.k}"><div class="av">${t.e}</div><h3>${t.n}</h3><div class="mu">${t.s}<br>${t.y} yrs experience · ⭐ ${t.r}</div><br><button class="btn ${S.t==t.n?'alt':''}" onclick="S.t='${t.n}';save();go('register')">${S.t==t.n?'✓ Selected – continue':'Select '+t.n}</button></div>`).join('')}</div>`,
+register:()=>{const u=S.u||{};return`<h1>Create your <span class="g">account</span></h1><div class="card" style="max-width:520px"><label>Full name</label><input id="rn" value="${esc(u.n||'')}"><label>Email</label><input id="re" type="email" value="${esc(u.e||'')}"><div class="row"><div><label>Phone</label><input id="rp" inputmode="numeric" value="${esc(u.p||'')}"></div><div><label>Age</label><input id="ra" type="number" value="${esc(u.a||'')}"></div></div><br><button class="btn" onclick="reg()">Continue to Payment →</button></div>`},
+payment:()=>{const p=plan(),b=price(p,cy()),g=b*.18;return`<h1>Secure <span class="g">Payment</span></h1><div class="grid"><div class="card" style="--k:var(--c)"><h3>Order summary</h3><p>${p.n} – ${cy()=='y'?'Yearly':'Monthly'}<br>Trainer: <b>${S.t}</b></p><p class="mu">Subtotal ${inr(b)}<br>GST (18%) ${inr(g)}</p><div class="price">${inr(b+g)}</div></div>
+<div class="card" style="--k:var(--a)"><div class="tog"><button id="mc" class="on" onclick="pm('c')">Card</button><button id="mu" onclick="pm('u')">UPI</button></div><div id="pc"><label>Name on card</label><input id="cn"><label>Card number</label><input id="cc" inputmode="numeric" placeholder="1234 5678 9012 3456"><div class="row"><div><label>Expiry (MM/YY)</label><input id="ce" placeholder="08/29"></div><div><label>CVV</label><input id="cv" type="password" inputmode="numeric" maxlength="3"></div></div></div>
+<div id="pu" hidden><label>UPI ID</label><input id="ui" placeholder="name@bank"></div><br><button class="btn" onclick="pay()">Pay ${inr(b+g)}</button><p class="mu">Demo only – no real payment is processed. Don’t enter real card details.</p></div></div>`},
+dashboard:()=>{if(!S.exp)return`<h1>Member <span class="g">Dashboard</span></h1><div class="card"><p>You don’t have an active membership yet.</p><button class="btn" onclick="go('plans')">Choose a plan</button></div>`;
+const d=days(),p=plan(),tot=cy()=='y'?365:30,pc=Math.max(0,Math.min(100,d/tot*100));
+const ban=d<=0?`<div class="ban">⚠️ Your membership has expired. Renew to keep booking classes.</div>`:d<=7?`<div class="ban">🔔 Reminder: your membership expires in ${d} day${d==1?'':'s'}. Renew now!</div>`:`<div class="ban ok">✅ Membership active – ${d} days left.</div>`;
+return`<h1>Hi, <span class="g">${esc((S.u||{}).n||'Member')}</span> 👋</h1>${ban}
+<div class="grid"><div class="card" style="--k:${p.k}"><h3>${p.n} plan</h3><div class="mu">${cy()=='y'?'Yearly':'Monthly'} · Trainer ${S.t}<br>Expires ${new Date(S.exp).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</div><br><div class="prog"><i style="width:${pc}%"></i></div><br><button class="btn" onclick="renew()">Renew now</button> <button class="btn out" onclick="S.exp=Date.now()+5*864e5;save();render();toast('Demo: 5 days left')">Demo: 5 days left</button></div>${bmiCard()}</div>
+<h2>Class schedule</h2><div class="grid">${CL.map(c=>{const on=S.b.includes(c[0]);return`<div class="card" style="--k:${on?'var(--ok)':'var(--c)'}"><div class="cl"><div><span class="tag">${c[1]}</span> <b>${c[3]}</b><div class="mu">${c[2]} · with ${c[4]}</div></div><button class="btn ${on?'out':'alt'}" onclick="book(${c[0]})">${on?'Cancel':'Book'}</button></div></div>`}).join('')}</div>
+<h2>My bookings (${S.b.length})</h2><p class="mu">${S.b.length?S.b.map(i=>{const c=CL.find(x=>x[0]==i);return`${c[1]} ${c[2]} – ${c[3]}`}).join(' • '):'No classes booked yet.'}</p><p><button class="btn out" onclick="if(confirm('Reset all demo data?')){S={b:[]};save();go('home');render()}">Reset demo data</button></p>`}};
+function pick(id){S.p={id,cy:cyc};save();go('trainers')}
+function reg(){const n=$('#rn').value.trim(),e=$('#re').value.trim(),p=$('#rp').value.trim(),a=+$('#ra').value;
+if(n.length<2)return toast('Enter your full name');if(!/^\S+@\S+\.\S+$/.test(e))return toast('Enter a valid email');if(!/^\d{10}$/.test(p))return toast('Phone must be 10 digits');if(!(a>=14&&a<=90))return toast('Enter a valid age (14–90)');
+S.u={n,e,p,a};save();go('payment')}
+function pm(m){$('#pc').hidden=m=='u';$('#pu').hidden=m=='c';$('#mc').className=m=='c'?'on':'';$('#mu').className=m=='u'?'on':''}
+function pay(){if(!$('#pu').hidden){if(!/^[\w.\-]{2,}@[\w]{2,}$/.test($('#ui').value.trim()))return toast('Enter a valid UPI ID')}
+else{const c=$('#cc').value.replace(/\s/g,''),e=$('#ce').value.trim();if($('#cn').value.trim().length<2)return toast('Enter name on card');if(!/^\d{16}$/.test(c))return toast('Card number must be 16 digits');
+const m=e.match(/^(\d{2})\/(\d{2})$/);if(!m||+m[1]<1||+m[1]>12||new Date(2000+ +m[2],+m[1])<new Date())return toast('Enter a valid expiry');if(!/^\d{3}$/.test($('#cv').value))return toast('CVV must be 3 digits')}
+S.exp=Date.now()+(cy()=='y'?365:30)*864e5;save();toast('Payment successful 🎉');go('dashboard')}
+function renew(){S.exp=Math.max(S.exp,Date.now())+(cy()=='y'?365:30)*864e5;save();render();toast('Membership renewed!')}
+function book(i){if(days()<=0)return toast('Renew your membership to book');S.b=S.b.includes(i)?S.b.filter(x=>x!=i):[...S.b,i];save();render();toast('Booking updated')}
+let raf=0;
+function scene(){cancelAnimationFrame(raf);const el=$('#stage');if(!el||!window.THREE)return;
+try{const W=el.clientWidth,H=el.clientHeight,r=new THREE.WebGLRenderer({antialias:true,alpha:true});r.setSize(W,H);r.setPixelRatio(Math.min(devicePixelRatio,2));el.appendChild(r.domElement);
+const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(45,W/H,.1,100);cam.position.set(0,1,7.5);
+sc.add(new THREE.AmbientLight(0xffffff,.7));const l=new THREE.DirectionalLight(0xffffff,.9);l.position.set(5,6,5);sc.add(l);const l2=new THREE.PointLight(0xec4899,1);l2.position.set(-5,-2,4);sc.add(l2);
+const g=new THREE.Group(),M=(c,m=.5,ro=.35)=>new THREE.MeshStandardMaterial({color:c,metalness:m,roughness:ro});
+const cy=(rt,h,m,x)=>{const o=new THREE.Mesh(new THREE.CylinderGeometry(rt,rt,h,40),m);o.rotation.z=Math.PI/2;o.position.x=x;g.add(o)};
+cy(.12,5.4,M(0xe2e8f0,.9,.2),0);for(let s=-1;s<=1;s+=2){cy(1.15,.35,M(0xf97316),s*1.4);cy(.9,.35,M(0xec4899),s*1.78);cy(.65,.35,M(0x8b5cf6),s*2.16);cy(.2,.25,M(0xe2e8f0,.9,.2),s*2.5)}
+const cols=[0x06b6d4,0xfacc15,0x10b981,0xf472b6,0xa78bfa,0xfb923c],orb=[];
+cols.forEach((c,i)=>{const o=new THREE.Mesh(new THREE.SphereGeometry(.14,16,16),M(c,.2,.3));o.userData.a=i*1.05;sc.add(o);orb.push(o)});
+sc.add(g);let dr=false,px=0,py=0;
+el.onpointerdown=e=>{dr=true;px=e.clientX;py=e.clientY;el.style.cursor='grabbing'};
+addEventListener('pointerup',()=>{dr=false;el.style.cursor='grab'});
+el.onpointermove=e=>{if(!dr)return;g.rotation.y+=(e.clientX-px)*.012;g.rotation.x+=(e.clientY-py)*.012;px=e.clientX;py=e.clientY};
+(function loop(t){if(!el.isConnected)return;raf=requestAnimationFrame(loop);if(!dr)g.rotation.y+=.01;
+orb.forEach(o=>{o.userData.a+=.02;const a=o.userData.a;o.position.set(Math.cos(a)*3.6,Math.sin(a*1.5)*1.6,Math.sin(a)*2)});r.render(sc,cam)})()}catch(e){el.innerHTML='<p style="color:#fff;padding:20px">3D preview unavailable on this device.</p>'}}
+const PG=[['home','Home'],['plans','Plans'],['trainers','Trainers'],['register','Register'],['payment','Payment'],['dashboard','Dashboard']];
+function render(){let h=location.hash.slice(1);if(!V[h])h='home';
+if(h=='trainers'&&!S.p)h='plans';if(h=='register'&&!S.t)h=S.p?'trainers':'plans';if(h=='payment'&&!(S.u&&S.t&&S.p))h=S.t?'register':S.p?'trainers':'plans';
+$('#nav').innerHTML='<b>💪 PulseFit</b>'+PG.map(p=>`<a href="#${p[0]}" class="${p[0]==h?'on':''}">${p[1]}</a>`).join('')+'<button onclick="th()" aria-label="Toggle theme">🌓</button>';
+$('#app').innerHTML=V[h]();scene();scrollTo(0,0)}
+function th(){const r=document.documentElement,d=getComputedStyle(r).getPropertyValue('--bg').trim()=='#0f0c29';r.dataset.theme=d?'light':'dark'}
+addEventListener('hashchange',render);render();
+</script></body></html>
